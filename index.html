@@ -270,6 +270,136 @@
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important;transition:none !important;}
   }
+
+  /* ---------------- modal overlay (onboarding) ---------------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(5,5,8,0.72);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;
+    animation:fadeIn .25s ease both;
+  }
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  .modal-card{
+    background:var(--card);border:1px solid var(--border-strong);border-radius:var(--radius-lg);
+    padding:32px;max-width:440px;width:100%;text-align:center;
+    box-shadow:0 20px 60px -10px rgba(0,0,0,0.6);
+    animation:fadeUp .3s ease both;
+  }
+  .modal-icon{font-size:34px;margin-bottom:10px;}
+  .modal-card h2{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px;}
+  .modal-card > p{color:var(--text-2);font-size:13.5px;margin-bottom:22px;}
+  .onboarding-options{display:flex;flex-direction:column;gap:10px;}
+  .onboarding-btn{
+    text-align:left;background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;
+    padding:14px 16px;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;gap:3px;
+  }
+  .onboarding-btn:hover{border-color:var(--border-strong);transform:translateY(-2px);}
+  .onboarding-btn.primary{border-color:rgba(34,197,143,0.35);background:var(--green-dim);}
+  .onboarding-btn.primary:hover{border-color:var(--green);}
+  .onboarding-btn .ob-title{font-family:'Sora',sans-serif;font-weight:600;font-size:14px;color:var(--text-1);}
+  .onboarding-btn .ob-desc{font-size:12px;color:var(--text-2);line-height:1.4;}
+
+  /* ---------------- floating action buttons ---------------- */
+  .fab{
+    position:fixed;right:24px;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;
+    box-shadow:0 8px 24px -6px rgba(0,0,0,0.5);z-index:120;transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .fab:hover{transform:translateY(-2px) scale(1.04);}
+  .fab-help{bottom:24px;background:var(--card);border:1px solid var(--border-strong);color:var(--text-1);font-family:'Sora',sans-serif;}
+  .fab-help:hover{border-color:var(--green);color:var(--green);}
+  .fab-add{bottom:88px;background:var(--green);color:#052018;display:none;box-shadow:0 8px 24px -4px var(--green-glow);}
+
+  @media (max-width:980px){
+    .fab-add{display:flex;}
+  }
+
+  /* ---------------- help panel ---------------- */
+  .help-panel{
+    position:fixed;bottom:88px;right:24px;width:320px;max-width:calc(100vw - 40px);
+    background:var(--card);border:1px solid var(--border-strong);border-radius:var(--radius-lg);
+    box-shadow:0 20px 60px -10px rgba(0,0,0,0.6);z-index:130;
+    animation:fadeUp .2s ease both;max-height:70vh;display:flex;flex-direction:column;
+  }
+  .help-panel-header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 18px;border-bottom:1px solid var(--border);
+  }
+  .help-panel-header h3{font-family:'Sora',sans-serif;font-size:14.5px;font-weight:700;}
+  .help-close{background:none;border:none;color:var(--text-2);font-size:15px;cursor:pointer;padding:4px;}
+  .help-close:hover{color:var(--text-1);}
+  .help-panel-body{padding:14px 18px 18px;overflow-y:auto;}
+  .help-item{margin-bottom:16px;}
+  .help-item:last-child{margin-bottom:0;}
+  .help-item strong{display:block;font-size:12.5px;color:var(--text-1);margin-bottom:4px;}
+  .help-item p{font-size:12px;color:var(--text-2);line-height:1.5;}
+
+  /* ---------------- bulk selection ---------------- */
+  .bulk-bar{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    background:var(--blue-dim);border:1px solid rgba(91,124,250,0.3);border-radius:10px;
+    padding:10px 14px;margin-bottom:12px;font-size:12.5px;color:var(--text-1);
+    animation:fadeUp .2s ease both;
+  }
+  .bulk-actions{display:flex;gap:8px;}
+  .bulk-delete, .bulk-clear{
+    border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;
+    font-family:'Inter',sans-serif;transition:filter .2s ease;
+  }
+  .bulk-delete{background:var(--red);color:#2c0a0f;}
+  .bulk-delete:hover{filter:brightness(1.1);}
+  .bulk-clear{background:transparent;border:1px solid var(--border-strong);color:var(--text-2);}
+  .bulk-clear:hover{color:var(--text-1);}
+  .row-checkbox, #selectAllCheckbox{width:15px;height:15px;accent-color:var(--blue);cursor:pointer;}
+
+  /* ---------------- empty state ---------------- */
+  .empty-cta{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,143,0.3);
+    padding:8px 16px;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;
+    transition:all .2s ease;
+  }
+  .empty-cta:hover{border-color:var(--green);}
+
+  /* ---------------- toasts ---------------- */
+  .toast-container{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+    display:flex;flex-direction:column;gap:8px;z-index:150;align-items:center;
+    width:100%;max-width:420px;padding:0 16px;
+  }
+  .toast{
+    width:100%;background:#1a1a24;border:1px solid var(--border-strong);border-radius:11px;
+    padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+    box-shadow:0 10px 30px -8px rgba(0,0,0,0.6);
+    animation:toastIn .25s ease both;font-size:12.5px;
+  }
+  @keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .toast span.toast-msg{color:var(--text-1);}
+  .toast button{
+    background:none;border:none;color:var(--green);font-weight:700;font-size:12.5px;cursor:pointer;
+    white-space:nowrap;flex-shrink:0;
+  }
+  .toast button:hover{text-decoration:underline;}
+
+  /* ---------------- mobile add-transaction modal ---------------- */
+  .form-close-mobile{display:none;}
+  @media (max-width:980px){
+    .form-card{display:none;}
+    .form-card.mobile-modal-open{
+      display:flex;flex-direction:column;
+      position:fixed;inset:auto 0 0 0;max-height:88vh;overflow-y:auto;
+      z-index:140;border-radius:20px 20px 0 0;
+      animation:slideUp .25s ease both;
+    }
+    @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+    .form-close-mobile{
+      display:block;position:absolute;top:14px;right:14px;background:var(--bg-elevated);
+      border:1px solid var(--border);color:var(--text-2);width:30px;height:30px;border-radius:50%;
+      cursor:pointer;font-size:13px;
+    }
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(5,5,8,0.6);z-index:135;
+    }
+  }
 </style>
 </head>
 <body>
@@ -380,7 +510,8 @@
 
   <div class="section-title"><span class="bar"></span>Lançamentos</div>
   <div class="tx-section">
-    <div class="form-card">
+    <div class="form-card" id="formCard">
+      <button class="form-close-mobile" id="formCloseMobile" aria-label="Fechar">✕</button>
       <h3>Adicionar lançamento</h3>
       <div class="type-toggle" id="typeToggle">
         <button type="button" class="active entrada" data-type="entrada">Entrada</button>
@@ -415,10 +546,20 @@
         <h3>Histórico</h3>
         <input type="text" class="search-input" id="searchInput" placeholder="Buscar categoria ou descrição…">
       </div>
+      <div class="bulk-bar" id="bulkBar" style="display:none;">
+        <span id="bulkCount">0 selecionados</span>
+        <div class="bulk-actions">
+          <button class="bulk-delete" id="bulkDeleteBtn">Excluir selecionados</button>
+          <button class="bulk-clear" id="bulkClearBtn">Cancelar seleção</button>
+        </div>
+      </div>
       <div class="tx-table-wrap">
         <table>
           <thead>
-            <tr><th>Data</th><th>Tipo</th><th>Categoria</th><th>Descrição</th><th>Natureza</th><th style="text-align:right">Valor</th><th></th></tr>
+            <tr>
+              <th style="width:34px"><input type="checkbox" id="selectAllCheckbox" title="Selecionar todos"></th>
+              <th>Data</th><th>Tipo</th><th>Categoria</th><th>Descrição</th><th>Natureza</th><th style="text-align:right">Valor</th><th></th>
+            </tr>
           </thead>
           <tbody id="txTableBody"></tbody>
         </table>
@@ -437,9 +578,52 @@
     <button id="exportBtn" title="Baixar um arquivo .json com todos os seus lançamentos">Exportar backup</button>
     <button id="importBtn" title="Carregar um arquivo .json exportado anteriormente">Importar backup</button>
     <input type="file" id="importFile" accept="application/json" style="display:none;">
-    <button id="resetDemo">Limpar tudo e recarregar exemplo</button>
+    <button id="clearAllBtn" title="Apaga todos os lançamentos e deixa o painel vazio">Começar do zero</button>
+    <button id="reloadDemoBtn" title="Substitui os dados atuais por 6 meses de exemplo fictício">Recarregar exemplo</button>
   </div>
 </footer>
+
+<!-- Modal de boas-vindas (primeira visita) -->
+<div class="modal-overlay" id="onboardingOverlay" style="display:none;">
+  <div class="modal-card">
+    <div class="modal-icon">👋</div>
+    <h2>Bem-vindo ao seu Painel Financeiro</h2>
+    <p>Como você prefere começar?</p>
+    <div class="onboarding-options">
+      <button class="onboarding-btn" id="btnStartDemo">
+        <span class="ob-title">Ver com dados de exemplo</span>
+        <span class="ob-desc">Explore o painel já preenchido com 6 meses de lançamentos fictícios</span>
+      </button>
+      <button class="onboarding-btn primary" id="btnStartEmpty">
+        <span class="ob-title">Começar vazio</span>
+        <span class="ob-desc">Ir direto para o seu controle financeiro real, sem dados de exemplo</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Botões flutuantes -->
+<button class="fab fab-add" id="addFab" title="Adicionar lançamento" aria-label="Adicionar lançamento">＋</button>
+<button class="fab fab-help" id="helpFab" title="Ajuda" aria-label="Ajuda">?</button>
+
+<!-- Painel de ajuda -->
+<div class="help-panel" id="helpPanel" style="display:none;">
+  <div class="help-panel-header">
+    <h3>Como usar o painel</h3>
+    <button class="help-close" id="helpClose" aria-label="Fechar ajuda">✕</button>
+  </div>
+  <div class="help-panel-body">
+    <div class="help-item"><strong>➕ Adicionar lançamento</strong><p>Preencha o formulário (ou toque no botão + no celular): tipo, valor, categoria e data.</p></div>
+    <div class="help-item"><strong>🏷️ Fixa vs. variável</strong><p>Despesas fixas se repetem todo mês (aluguel, assinaturas). Variáveis mudam de valor e frequência (mercado, lazer).</p></div>
+    <div class="help-item"><strong>🗑️ Excluir lançamentos</strong><p>Use o ✕ na tabela para excluir um item, ou marque várias caixas e clique em "Excluir selecionados". Toda exclusão pode ser desfeita por alguns segundos.</p></div>
+    <div class="help-item"><strong>💾 Backup</strong><p>Seus dados ficam salvos só neste navegador. Use "Exportar backup" periodicamente para guardar um arquivo de segurança.</p></div>
+    <div class="help-item"><strong>🔄 Recomeçar</strong><p>No rodapé, você pode apagar tudo e começar vazio, ou recarregar os dados de exemplo a qualquer momento.</p></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="formBackdrop" style="display:none;"></div>
+<div class="toast-container" id="toastContainer"></div>
+
 
 <script>
 (function(){
@@ -454,7 +638,7 @@ const CAT_COLORS = {
   "Investimentos":"#2dd4bf","Outros":"#94a3b8"
 };
 
-let state = { transactions: [], type: "entrada", period: "6" };
+let state = { transactions: [], type: "entrada", period: "6", selectedIds: new Set() };
 
 function fmtBRL(v){
   return (v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
@@ -572,14 +756,20 @@ function sanitizeTransactions(list){
 const STORAGE_VERSION = 1;
 const STORAGE_KEY = `painelFinanceiro:v${STORAGE_VERSION}:transacoes`;
 
-function loadTransactions(){
+function isFirstVisit(){
+  return localStorage.getItem(STORAGE_KEY) === null;
+}
+
+// Chamar apenas quando já sabemos que a chave existe (usuário recorrente).
+// Se os dados estiverem corrompidos/ilegíveis, recupera com um exemplo para não deixar o app quebrado.
+function loadOrRecover(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw !== null){
       const parsed = JSON.parse(raw);
       const clean = sanitizeTransactions(parsed);
       if(clean !== null) return clean; // inclui o caso de lista válida vazia
-      console.warn('Dados salvos em formato inesperado — ignorando e recriando exemplo.');
+      console.warn('Dados salvos em formato inesperado — recriando exemplo.');
     }
   }catch(e){
     console.warn('Não foi possível ler os dados salvos localmente (localStorage indisponível ou corrompido):', e);
@@ -604,6 +794,24 @@ function persistTransactions(list){
   }
 }
 function saveTransactions(){ return persistTransactions(state.transactions); }
+
+/* ---------------- toasts com desfazer ---------------- */
+function showUndoToast(message, onUndo, timeoutMs = 6000){
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span class="toast-msg">${escapeHtml(message)}</span><button type="button">Desfazer</button>`;
+  let done = false;
+  const timer = setTimeout(()=>{ if(!done){ done = true; toast.remove(); } }, timeoutMs);
+  toast.querySelector('button').addEventListener('click', ()=>{
+    if(done) return;
+    done = true;
+    clearTimeout(timer);
+    toast.remove();
+    onUndo();
+  });
+  container.appendChild(toast);
+}
 
 function setStorageNotice(msg){
   const el = document.getElementById('storageNotice');
@@ -914,12 +1122,25 @@ function renderTable(){
     .sort((a,b)=> a.data < b.data ? 1 : -1);
 
   const tbody = document.getElementById('txTableBody');
+
   if(!filtered.length){
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="7">Nenhum lançamento encontrado para este filtro.</td></tr>`;
+    if(state.transactions.length === 0){
+      tbody.innerHTML = `<tr class="empty-row"><td colspan="8">
+        Nenhum lançamento ainda.<br>
+        <button type="button" class="empty-cta" id="emptyCtaBtn">＋ Adicionar meu primeiro lançamento</button>
+      </td></tr>`;
+      const ctaBtn = document.getElementById('emptyCtaBtn');
+      if(ctaBtn) ctaBtn.addEventListener('click', openAddForm);
+    } else {
+      tbody.innerHTML = `<tr class="empty-row"><td colspan="8">Nenhum lançamento encontrado para este filtro.</td></tr>`;
+    }
+    updateBulkBar();
     return;
   }
+
   tbody.innerHTML = filtered.map(t => `
     <tr>
+      <td><input type="checkbox" class="row-checkbox" data-id="${t.id}" ${state.selectedIds.has(t.id) ? 'checked' : ''}></td>
       <td class="mono">${fmtDate(t.data)}</td>
       <td>${t.tipo==='entrada' ? '<span style="color:var(--green)">Entrada</span>' : '<span style="color:var(--red)">Saída</span>'}</td>
       <td>${escapeHtml(t.categoria)}</td>
@@ -932,11 +1153,51 @@ function renderTable(){
 
   tbody.querySelectorAll('.del-btn').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
-      state.transactions = state.transactions.filter(t=>t.id !== btn.dataset.id);
+      const id = btn.dataset.id;
+      const idx = state.transactions.findIndex(t=>t.id === id);
+      if(idx === -1) return;
+      const [removed] = state.transactions.splice(idx, 1);
+      state.selectedIds.delete(id);
       await saveTransactions();
       renderAll();
+      showUndoToast('Lançamento excluído.', async ()=>{
+        state.transactions.splice(Math.min(idx, state.transactions.length), 0, removed);
+        await saveTransactions();
+        renderAll();
+      });
     });
   });
+
+  tbody.querySelectorAll('.row-checkbox').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      if(cb.checked) state.selectedIds.add(cb.dataset.id);
+      else state.selectedIds.delete(cb.dataset.id);
+      updateBulkBar();
+    });
+  });
+
+  const selectAll = document.getElementById('selectAllCheckbox');
+  const visibleIds = filtered.map(t=>t.id);
+  selectAll.checked = visibleIds.length > 0 && visibleIds.every(id => state.selectedIds.has(id));
+  selectAll.onchange = () => {
+    if(selectAll.checked) visibleIds.forEach(id => state.selectedIds.add(id));
+    else visibleIds.forEach(id => state.selectedIds.delete(id));
+    renderTable();
+  };
+
+  updateBulkBar();
+}
+
+function updateBulkBar(){
+  const bar = document.getElementById('bulkBar');
+  const count = state.selectedIds.size;
+  document.getElementById('bulkCount').textContent = `${count} selecionado${count===1?'':'s'}`;
+  bar.style.display = count > 0 ? 'flex' : 'none';
+}
+
+function clearSelection(){
+  state.selectedIds.clear();
+  updateBulkBar();
 }
 
 /* ---------------- form logic ---------------- */
@@ -1003,6 +1264,7 @@ document.getElementById('btnAdd').addEventListener('click', async ()=>{
   setTimeout(()=>{ msg.textContent=''; }, 2200);
 
   renderAll();
+  if(window.innerWidth <= 980) setTimeout(closeAddForm, 500); // fecha a folha mobile após um breve feedback visual
 });
 
 document.getElementById('searchInput').addEventListener('input', renderTable);
@@ -1016,9 +1278,19 @@ document.getElementById('periodFilter').addEventListener('click', (e)=>{
   renderAll();
 });
 
-document.getElementById('resetDemo').addEventListener('click', async ()=>{
-  if(!confirm('Isso vai apagar todos os seus lançamentos e recarregar dados de exemplo. Continuar?')) return;
+document.getElementById('clearAllBtn').addEventListener('click', async ()=>{
+  if(state.transactions.length === 0) return;
+  if(!confirm('Isso vai apagar todos os seus lançamentos e deixar o painel vazio. Continuar?')) return;
+  state.transactions = [];
+  clearSelection();
+  await saveTransactions();
+  renderAll();
+});
+
+document.getElementById('reloadDemoBtn').addEventListener('click', async ()=>{
+  if(!confirm('Isso vai substituir os dados atuais por 6 meses de exemplo fictício. Continuar?')) return;
   state.transactions = generateDemoData();
+  clearSelection();
   await saveTransactions();
   renderAll();
 });
@@ -1034,15 +1306,110 @@ document.getElementById('importFile').addEventListener('change', (e)=>{
   e.target.value = ''; // permite selecionar o mesmo arquivo de novo depois
 });
 
+/* ---------------- seleção em massa ---------------- */
+document.getElementById('bulkDeleteBtn').addEventListener('click', async ()=>{
+  const ids = new Set(state.selectedIds);
+  if(!ids.size) return;
+  const removed = state.transactions.filter(t => ids.has(t.id));
+  const removedIndexes = removed.map(t => state.transactions.indexOf(t));
+  state.transactions = state.transactions.filter(t => !ids.has(t.id));
+  clearSelection();
+  await saveTransactions();
+  renderAll();
+  showUndoToast(`${removed.length} lançamento${removed.length===1?'':'s'} excluído${removed.length===1?'':'s'}.`, async ()=>{
+    // reinsere preservando aproximadamente a posição original
+    removed.forEach((t, i)=>{
+      const pos = Math.min(removedIndexes[i], state.transactions.length);
+      state.transactions.splice(pos, 0, t);
+    });
+    await saveTransactions();
+    renderAll();
+  });
+});
+
+document.getElementById('bulkClearBtn').addEventListener('click', ()=>{
+  clearSelection();
+  renderTable();
+});
+
+/* ---------------- painel de ajuda flutuante ---------------- */
+function toggleHelpPanel(show){
+  const panel = document.getElementById('helpPanel');
+  panel.style.display = show ? 'flex' : 'none';
+}
+document.getElementById('helpFab').addEventListener('click', ()=>{
+  const panel = document.getElementById('helpPanel');
+  toggleHelpPanel(panel.style.display === 'none');
+});
+document.getElementById('helpClose').addEventListener('click', ()=>toggleHelpPanel(false));
+document.addEventListener('click', (e)=>{
+  const panel = document.getElementById('helpPanel');
+  const fab = document.getElementById('helpFab');
+  if(panel.style.display !== 'none' && !panel.contains(e.target) && e.target !== fab){
+    toggleHelpPanel(false);
+  }
+});
+
+/* ---------------- formulário como modal no mobile ---------------- */
+function openAddForm(){
+  const card = document.getElementById('formCard');
+  if(window.innerWidth <= 980){
+    card.classList.add('mobile-modal-open');
+    document.getElementById('formBackdrop').style.display = 'block';
+    document.getElementById('fValor').focus();
+  } else {
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+    document.getElementById('fValor').focus();
+  }
+}
+function closeAddForm(){
+  document.getElementById('formCard').classList.remove('mobile-modal-open');
+  document.getElementById('formBackdrop').style.display = 'none';
+}
+document.getElementById('addFab').addEventListener('click', openAddForm);
+document.getElementById('formCloseMobile').addEventListener('click', closeAddForm);
+document.getElementById('formBackdrop').addEventListener('click', closeAddForm);
+
+/* ---------------- onboarding (primeira visita) ---------------- */
+function showOnboardingModal(){
+  document.getElementById('onboardingOverlay').style.display = 'flex';
+}
+function hideOnboardingModal(){
+  document.getElementById('onboardingOverlay').style.display = 'none';
+}
+document.getElementById('btnStartDemo').addEventListener('click', async ()=>{
+  state.transactions = generateDemoData();
+  await saveTransactions();
+  hideOnboardingModal();
+  finishInit();
+});
+document.getElementById('btnStartEmpty').addEventListener('click', async ()=>{
+  state.transactions = [];
+  await saveTransactions();
+  hideOnboardingModal();
+  finishInit();
+});
+
 /* ---------------- init ---------------- */
+function finishInit(){
+  const now = new Date();
+  document.getElementById('footerInfo').textContent = state.transactions.length
+    ? `Seus lançamentos ficam salvos neste navegador · atualizado em ${now.toLocaleDateString('pt-BR')}`
+    : `Painel vazio, pronto para seus lançamentos reais · ${now.toLocaleDateString('pt-BR')}`;
+  renderAll();
+}
+
 async function init(){
   document.getElementById('fData').value = todayISO();
   populateCategories();
-  state.transactions = await loadTransactions();
-  const now = new Date();
-  document.getElementById('footerInfo').textContent =
-    `Dados de demonstração inclusos — seus lançamentos ficam salvos neste navegador · gerado em ${now.toLocaleDateString('pt-BR')}`;
-  renderAll();
+
+  if(isFirstVisit()){
+    state.transactions = [];
+    showOnboardingModal();
+    return; // finishInit() é chamado quando o usuário escolher uma opção no modal
+  }
+  state.transactions = loadOrRecover();
+  finishInit();
 }
 init();
 
