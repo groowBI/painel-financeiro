@@ -172,18 +172,11 @@
     padding:22px;height:fit-content;
   }
   .form-card h3{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;margin-bottom:16px;}
-  .type-toggle{display:flex;background:var(--bg-elevated);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:14px;}
-  .type-toggle button{
-    flex:1;border:none;background:transparent;color:var(--text-2);padding:9px;border-radius:8px;
-    font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s ease;
-  }
-  .type-toggle button.active.entrada{background:var(--green-dim);color:var(--green);}
-  .type-toggle button.active.saida{background:var(--red-dim);color:var(--red);}
 
   .field{margin-bottom:13px;}
   .field label{display:block;font-size:11.5px;color:var(--text-2);font-weight:600;margin-bottom:6px;letter-spacing:.02em;}
   .field input, .field select{
-    width:100%;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-1);
+    width:100%;background:#1d1d29;border:1px solid var(--border-strong);color:var(--text-1);
     padding:10px 12px;border-radius:9px;font-family:'Inter',sans-serif;font-size:13.5px;outline:none;
     transition:border-color .2s ease, box-shadow .2s ease;
   }
@@ -298,40 +291,39 @@
   .onboarding-btn .ob-title{font-family:'Sora',sans-serif;font-weight:600;font-size:14px;color:var(--text-1);}
   .onboarding-btn .ob-desc{font-size:12px;color:var(--text-2);line-height:1.4;}
 
-  /* ---------------- floating action buttons ---------------- */
+  /* ---------------- floating action button (mobile: adicionar) ---------------- */
   .fab{
-    position:fixed;right:24px;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;
-    box-shadow:0 8px 24px -6px rgba(0,0,0,0.5);z-index:120;transition:transform .2s ease, box-shadow .2s ease;
+    position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
+    display:none;align-items:center;justify-content:center;font-size:26px;font-weight:700;line-height:1;
+    box-shadow:0 10px 28px -6px rgba(0,0,0,0.55);z-index:120;transition:transform .2s ease, box-shadow .2s ease;
+    background:var(--green);color:#052018;box-shadow:0 10px 28px -4px var(--green-glow);
   }
-  .fab:hover{transform:translateY(-2px) scale(1.04);}
-  .fab-help{bottom:24px;background:var(--card);border:1px solid var(--border-strong);color:var(--text-1);font-family:'Sora',sans-serif;}
-  .fab-help:hover{border-color:var(--green);color:var(--green);}
-  .fab-add{bottom:88px;background:var(--green);color:#052018;display:none;box-shadow:0 8px 24px -4px var(--green-glow);}
-
+  .fab:hover{transform:translateY(-2px) scale(1.05);}
   @media (max-width:980px){
     .fab-add{display:flex;}
   }
 
-  /* ---------------- help panel ---------------- */
-  .help-panel{
-    position:fixed;bottom:88px;right:24px;width:320px;max-width:calc(100vw - 40px);
-    background:var(--card);border:1px solid var(--border-strong);border-radius:var(--radius-lg);
-    box-shadow:0 20px 60px -10px rgba(0,0,0,0.6);z-index:130;
-    animation:fadeUp .2s ease both;max-height:70vh;display:flex;flex-direction:column;
+  /* ---------------- ícone de ajuda (cabeçalho, todas as telas) ---------------- */
+  .help-icon-btn{
+    width:34px;height:34px;border-radius:50%;border:1px solid var(--border-strong);background:var(--card);
+    color:var(--text-2);font-family:'Sora',sans-serif;font-weight:700;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;
   }
-  .help-panel-header{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:16px 18px;border-bottom:1px solid var(--border);
-  }
-  .help-panel-header h3{font-family:'Sora',sans-serif;font-size:14.5px;font-weight:700;}
-  .help-close{background:none;border:none;color:var(--text-2);font-size:15px;cursor:pointer;padding:4px;}
+  .help-icon-btn:hover{color:var(--green);border-color:var(--green);}
+
+  /* ---------------- painel de ajuda (modal, mesmo padrão do onboarding — mais confiável) ---------------- */
+  .help-modal-card{max-width:400px;text-align:left;}
+  .help-modal-card .modal-icon{margin-bottom:2px;}
+  .help-panel-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+  .help-panel-header h2{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;}
+  .help-close{background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-2);
+    width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:13px;flex-shrink:0;}
   .help-close:hover{color:var(--text-1);}
-  .help-panel-body{padding:14px 18px 18px;overflow-y:auto;}
+  .help-panel-body{max-height:60vh;overflow-y:auto;}
   .help-item{margin-bottom:16px;}
   .help-item:last-child{margin-bottom:0;}
-  .help-item strong{display:block;font-size:12.5px;color:var(--text-1);margin-bottom:4px;}
-  .help-item p{font-size:12px;color:var(--text-2);line-height:1.5;}
+  .help-item strong{display:block;font-size:13px;color:var(--text-1);margin-bottom:4px;}
+  .help-item p{font-size:12.5px;color:var(--text-2);line-height:1.5;}
 
   /* ---------------- bulk selection ---------------- */
   .bulk-bar{
@@ -342,21 +334,21 @@
   }
   .bulk-actions{display:flex;gap:8px;}
   .bulk-delete, .bulk-clear{
-    border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;
-    font-family:'Inter',sans-serif;transition:filter .2s ease;
+    border:none;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer;
+    font-family:'Inter',sans-serif;transition:filter .2s ease;min-height:36px;
   }
   .bulk-delete{background:var(--red);color:#2c0a0f;}
   .bulk-delete:hover{filter:brightness(1.1);}
   .bulk-clear{background:transparent;border:1px solid var(--border-strong);color:var(--text-2);}
   .bulk-clear:hover{color:var(--text-1);}
-  .row-checkbox, #selectAllCheckbox{width:15px;height:15px;accent-color:var(--blue);cursor:pointer;}
+  .row-checkbox, #selectAllCheckbox{width:17px;height:17px;accent-color:var(--blue);cursor:pointer;}
 
   /* ---------------- empty state ---------------- */
   .empty-cta{
     display:inline-flex;align-items:center;gap:6px;margin-top:10px;
     background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,143,0.3);
-    padding:8px 16px;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;
-    transition:all .2s ease;
+    padding:10px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;
+    transition:all .2s ease;min-height:40px;
   }
   .empty-cta:hover{border-color:var(--green);}
 
@@ -380,25 +372,82 @@
   }
   .toast button:hover{text-decoration:underline;}
 
-  /* ---------------- mobile add-transaction modal ---------------- */
+  /* ---------------- formulário: cabeçalho / corpo / rodapé (estrutura reaproveitada no mobile) ---------------- */
+  .form-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .form-card-header h3{margin-bottom:0;}
   .form-close-mobile{display:none;}
+
+  /* Maior contraste e alvo de toque maior — vale para desktop e mobile */
+  .type-toggle{display:flex;background:var(--bg-elevated);border:1px solid var(--border);border-radius:11px;padding:5px;gap:5px;margin-bottom:14px;}
+  .type-toggle button{
+    flex:1;border:1px solid transparent;background:var(--card);color:var(--text-1);padding:12px;min-height:46px;
+    border-radius:8px;font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;transition:all .2s ease;
+  }
+  .type-toggle button.active.entrada{background:var(--green-dim);color:var(--green);border-color:rgba(34,197,143,0.4);}
+  .type-toggle button.active.saida{background:var(--red-dim);color:var(--red);border-color:rgba(255,92,114,0.4);}
+
+  .field input, .field select{min-height:46px;}
+
+  /* ---------------- mobile: modal de adicionar lançamento em tela cheia ---------------- */
   @media (max-width:980px){
     .form-card{display:none;}
     .form-card.mobile-modal-open{
       display:flex;flex-direction:column;
-      position:fixed;inset:auto 0 0 0;max-height:88vh;overflow-y:auto;
-      z-index:140;border-radius:20px 20px 0 0;
-      animation:slideUp .25s ease both;
+      position:fixed;inset:0;z-index:140;
+      background:var(--bg);
+      animation:fadeIn .2s ease both;
     }
-    @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+    .form-card.mobile-modal-open .form-card-header{
+      flex-shrink:0;margin:0;padding:18px 20px;border-bottom:1px solid var(--border);
+      background:var(--bg);
+    }
+    .form-card.mobile-modal-open .form-card-header h3{font-size:17px;}
+    .form-card.mobile-modal-open .form-card-body{
+      flex:1;overflow-y:auto;padding:20px;
+    }
+    .form-card.mobile-modal-open .form-card-footer{
+      flex-shrink:0;padding:16px 20px calc(16px + env(safe-area-inset-bottom));
+      border-top:1px solid var(--border);background:var(--bg);
+    }
     .form-close-mobile{
-      display:block;position:absolute;top:14px;right:14px;background:var(--bg-elevated);
-      border:1px solid var(--border);color:var(--text-2);width:30px;height:30px;border-radius:50%;
-      cursor:pointer;font-size:13px;
+      display:flex;align-items:center;justify-content:center;background:var(--card);
+      border:1px solid var(--border-strong);color:var(--text-1);width:36px;height:36px;border-radius:50%;
+      cursor:pointer;font-size:14px;flex-shrink:0;
     }
-    .modal-backdrop{
-      position:fixed;inset:0;background:rgba(5,5,8,0.6);z-index:135;
+    .type-toggle button{min-height:52px;font-size:15px;}
+    .field label{font-size:12.5px;}
+    .field input, .field select{min-height:52px;font-size:16px;padding:12px 14px;}
+    .btn-add{min-height:52px;font-size:14.5px;}
+  }
+
+  /* ---------------- mobile: lista de lançamentos em cartões (em vez de tabela) ---------------- */
+  @media (max-width:760px){
+    .tx-table-wrap table thead{display:none;}
+    .tx-table-wrap table, .tx-table-wrap tbody{display:block;width:100%;}
+    .tx-table-wrap table tbody tr{
+      display:grid;
+      grid-template-columns:24px 1fr 1fr auto;
+      grid-template-areas:
+        "check date  tipo  del"
+        "check cat   cat   cat"
+        "check desc  desc  desc"
+        "check nat   nat   val";
+      column-gap:10px;row-gap:5px;align-items:center;
+      background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;
+      padding:14px;margin-bottom:10px;
     }
+    .tx-table-wrap table tbody tr.empty-row{display:block;background:none;border:none;padding:0;}
+    .tx-table-wrap td{border-bottom:none !important;padding:0 !important;}
+    .tx-table-wrap td:nth-child(1){grid-area:check;align-self:start;}
+    .tx-table-wrap td:nth-child(2){grid-area:date;font-size:11.5px;color:var(--text-3);}
+    .tx-table-wrap td:nth-child(3){grid-area:tipo;text-align:right;font-size:11.5px;}
+    .tx-table-wrap td:nth-child(4){grid-area:cat;font-weight:700;font-size:14px;}
+    .tx-table-wrap td:nth-child(5){grid-area:desc;font-size:12px;color:var(--text-2);}
+    .tx-table-wrap td:nth-child(6){grid-area:nat;}
+    .tx-table-wrap td:nth-child(7){grid-area:val;text-align:right;font-size:15px;}
+    .tx-table-wrap td:nth-child(8){grid-area:del;justify-self:end;align-self:start;}
+    .tx-table-wrap .del-btn{font-size:16px;padding:6px;}
+    .tx-table-wrap .row-checkbox{width:19px;height:19px;}
   }
 </style>
 </head>
@@ -412,11 +461,14 @@
       <div class="sub" id="periodSub">Carregando período…</div>
       <div class="privacy-badge">🔒 100% local — seus dados não saem deste navegador</div>
     </div>
-    <div class="period-filter" id="periodFilter">
-      <button data-period="1">Este mês</button>
-      <button data-period="3">3 meses</button>
-      <button data-period="6" class="active">6 meses</button>
-      <button data-period="all">Tudo</button>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="period-filter" id="periodFilter">
+        <button data-period="1">Este mês</button>
+        <button data-period="3">3 meses</button>
+        <button data-period="6" class="active">6 meses</button>
+        <button data-period="all">Tudo</button>
+      </div>
+      <button class="help-icon-btn" id="helpFab" title="Ajuda" aria-label="Ajuda">?</button>
     </div>
   </div>
 
@@ -511,34 +563,40 @@
   <div class="section-title"><span class="bar"></span>Lançamentos</div>
   <div class="tx-section">
     <div class="form-card" id="formCard">
-      <button class="form-close-mobile" id="formCloseMobile" aria-label="Fechar">✕</button>
-      <h3>Adicionar lançamento</h3>
-      <div class="type-toggle" id="typeToggle">
-        <button type="button" class="active entrada" data-type="entrada">Entrada</button>
-        <button type="button" class="saida" data-type="saida">Saída</button>
+      <div class="form-card-header">
+        <h3>Adicionar lançamento</h3>
+        <button class="form-close-mobile" id="formCloseMobile" aria-label="Fechar">✕</button>
       </div>
-      <div class="field">
-        <label>Valor (R$)</label>
-        <input type="number" id="fValor" step="0.01" min="0" placeholder="0,00">
+      <div class="form-card-body">
+        <div class="type-toggle" id="typeToggle">
+          <button type="button" class="active entrada" data-type="entrada">Entrada</button>
+          <button type="button" class="saida" data-type="saida">Saída</button>
+        </div>
+        <div class="field">
+          <label>Valor (R$)</label>
+          <input type="number" id="fValor" step="0.01" min="0" inputmode="decimal" placeholder="0,00">
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <select id="fCategoria"></select>
+        </div>
+        <div class="field">
+          <label>Data</label>
+          <input type="date" id="fData">
+        </div>
+        <div class="field">
+          <label>Descrição (opcional)</label>
+          <input type="text" id="fDescricao" placeholder="Ex: Supermercado do mês">
+        </div>
+        <label class="checkbox-row" id="fixaRow">
+          <input type="checkbox" id="fFixa">
+          <span>É uma despesa fixa recorrente</span>
+        </label>
       </div>
-      <div class="field">
-        <label>Categoria</label>
-        <select id="fCategoria"></select>
+      <div class="form-card-footer">
+        <button class="btn-add" id="btnAdd">Adicionar lançamento</button>
+        <div class="form-msg" id="formMsg"></div>
       </div>
-      <div class="field">
-        <label>Data</label>
-        <input type="date" id="fData">
-      </div>
-      <div class="field">
-        <label>Descrição (opcional)</label>
-        <input type="text" id="fDescricao" placeholder="Ex: Supermercado do mês">
-      </div>
-      <label class="checkbox-row" id="fixaRow">
-        <input type="checkbox" id="fFixa">
-        <span>É uma despesa fixa recorrente</span>
-      </label>
-      <button class="btn-add" id="btnAdd">Adicionar lançamento</button>
-      <div class="form-msg" id="formMsg"></div>
     </div>
 
     <div class="table-card">
@@ -602,26 +660,26 @@
   </div>
 </div>
 
-<!-- Botões flutuantes -->
+<!-- Botão flutuante (mobile: adicionar lançamento) -->
 <button class="fab fab-add" id="addFab" title="Adicionar lançamento" aria-label="Adicionar lançamento">＋</button>
-<button class="fab fab-help" id="helpFab" title="Ajuda" aria-label="Ajuda">?</button>
 
-<!-- Painel de ajuda -->
-<div class="help-panel" id="helpPanel" style="display:none;">
-  <div class="help-panel-header">
-    <h3>Como usar o painel</h3>
-    <button class="help-close" id="helpClose" aria-label="Fechar ajuda">✕</button>
-  </div>
-  <div class="help-panel-body">
-    <div class="help-item"><strong>➕ Adicionar lançamento</strong><p>Preencha o formulário (ou toque no botão + no celular): tipo, valor, categoria e data.</p></div>
-    <div class="help-item"><strong>🏷️ Fixa vs. variável</strong><p>Despesas fixas se repetem todo mês (aluguel, assinaturas). Variáveis mudam de valor e frequência (mercado, lazer).</p></div>
-    <div class="help-item"><strong>🗑️ Excluir lançamentos</strong><p>Use o ✕ na tabela para excluir um item, ou marque várias caixas e clique em "Excluir selecionados". Toda exclusão pode ser desfeita por alguns segundos.</p></div>
-    <div class="help-item"><strong>💾 Backup</strong><p>Seus dados ficam salvos só neste navegador. Use "Exportar backup" periodicamente para guardar um arquivo de segurança.</p></div>
-    <div class="help-item"><strong>🔄 Recomeçar</strong><p>No rodapé, você pode apagar tudo e começar vazio, ou recarregar os dados de exemplo a qualquer momento.</p></div>
+<!-- Modal de ajuda -->
+<div class="modal-overlay" id="helpOverlay" style="display:none;">
+  <div class="modal-card help-modal-card">
+    <div class="help-panel-header">
+      <h2>Como usar o painel</h2>
+      <button class="help-close" id="helpClose" aria-label="Fechar ajuda">✕</button>
+    </div>
+    <div class="help-panel-body">
+      <div class="help-item"><strong>➕ Adicionar lançamento</strong><p>Preencha o formulário (ou toque no botão + no celular): tipo, valor, categoria e data.</p></div>
+      <div class="help-item"><strong>🏷️ Fixa vs. variável</strong><p>Despesas fixas se repetem todo mês (aluguel, assinaturas). Variáveis mudam de valor e frequência (mercado, lazer).</p></div>
+      <div class="help-item"><strong>🗑️ Excluir lançamentos</strong><p>Use o ✕ na tabela para excluir um item, ou marque várias caixas e clique em "Excluir selecionados". Toda exclusão pode ser desfeita por alguns segundos.</p></div>
+      <div class="help-item"><strong>💾 Backup</strong><p>Seus dados ficam salvos só neste navegador. Use "Exportar backup" periodicamente para guardar um arquivo de segurança.</p></div>
+      <div class="help-item"><strong>🔄 Recomeçar</strong><p>No rodapé, você pode apagar tudo e começar vazio, ou recarregar os dados de exemplo a qualquer momento.</p></div>
+    </div>
   </div>
 </div>
 
-<div class="modal-backdrop" id="formBackdrop" style="display:none;"></div>
 <div class="toast-container" id="toastContainer"></div>
 
 
@@ -1332,31 +1390,36 @@ document.getElementById('bulkClearBtn').addEventListener('click', ()=>{
   renderTable();
 });
 
-/* ---------------- painel de ajuda flutuante ---------------- */
-function toggleHelpPanel(show){
-  const panel = document.getElementById('helpPanel');
-  panel.style.display = show ? 'flex' : 'none';
+/* ---------------- modal de ajuda ---------------- */
+function showHelpModal(){
+  document.getElementById('helpOverlay').style.display = 'flex';
+  lockBodyScroll();
 }
-document.getElementById('helpFab').addEventListener('click', ()=>{
-  const panel = document.getElementById('helpPanel');
-  toggleHelpPanel(panel.style.display === 'none');
-});
-document.getElementById('helpClose').addEventListener('click', ()=>toggleHelpPanel(false));
-document.addEventListener('click', (e)=>{
-  const panel = document.getElementById('helpPanel');
-  const fab = document.getElementById('helpFab');
-  if(panel.style.display !== 'none' && !panel.contains(e.target) && e.target !== fab){
-    toggleHelpPanel(false);
-  }
+function hideHelpModal(){
+  document.getElementById('helpOverlay').style.display = 'none';
+  unlockBodyScroll();
+}
+document.getElementById('helpFab').addEventListener('click', showHelpModal);
+document.getElementById('helpClose').addEventListener('click', hideHelpModal);
+document.getElementById('helpOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'helpOverlay') hideHelpModal(); // clique fora do card fecha
 });
 
-/* ---------------- formulário como modal no mobile ---------------- */
+/* ---------------- formulário como modal em tela cheia no mobile ---------------- */
+function lockBodyScroll(){ document.body.style.overflow = 'hidden'; }
+function unlockBodyScroll(){
+  // só libera o scroll se nenhum outro modal/folha estiver aberto
+  const formOpen = document.getElementById('formCard').classList.contains('mobile-modal-open');
+  const helpOpen = document.getElementById('helpOverlay').style.display !== 'none';
+  const onboardingOpen = document.getElementById('onboardingOverlay').style.display !== 'none';
+  if(!formOpen && !helpOpen && !onboardingOpen) document.body.style.overflow = '';
+}
 function openAddForm(){
   const card = document.getElementById('formCard');
   if(window.innerWidth <= 980){
     card.classList.add('mobile-modal-open');
-    document.getElementById('formBackdrop').style.display = 'block';
-    document.getElementById('fValor').focus();
+    lockBodyScroll();
+    setTimeout(()=>document.getElementById('fValor').focus(), 50);
   } else {
     card.scrollIntoView({behavior:'smooth', block:'start'});
     document.getElementById('fValor').focus();
@@ -1364,18 +1427,20 @@ function openAddForm(){
 }
 function closeAddForm(){
   document.getElementById('formCard').classList.remove('mobile-modal-open');
-  document.getElementById('formBackdrop').style.display = 'none';
+  unlockBodyScroll();
 }
 document.getElementById('addFab').addEventListener('click', openAddForm);
 document.getElementById('formCloseMobile').addEventListener('click', closeAddForm);
-document.getElementById('formBackdrop').addEventListener('click', closeAddForm);
+
 
 /* ---------------- onboarding (primeira visita) ---------------- */
 function showOnboardingModal(){
   document.getElementById('onboardingOverlay').style.display = 'flex';
+  lockBodyScroll();
 }
 function hideOnboardingModal(){
   document.getElementById('onboardingOverlay').style.display = 'none';
+  unlockBodyScroll();
 }
 document.getElementById('btnStartDemo').addEventListener('click', async ()=>{
   state.transactions = generateDemoData();
