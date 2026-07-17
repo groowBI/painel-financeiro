@@ -61,14 +61,46 @@
     padding-bottom:28px;border-bottom:1px solid var(--border);
     animation:fadeUp .6s ease both;
   }
-  .header .eyebrow{
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--green);margin-bottom:10px;
-    display:flex;align-items:center;gap:8px;
+  .brand-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .brand-logo{
+    width:30px;height:30px;border-radius:9px;flex-shrink:0;
+    background:linear-gradient(135deg, var(--green), var(--blue));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Sora',sans-serif;font-weight:800;font-size:15px;color:#04140f;
+    box-shadow:0 0 14px -2px var(--green-glow);
   }
-  .header .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px 2px var(--green-glow);animation:pulse 2s infinite;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.15;}
+  .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--text-1);letter-spacing:-0.01em;}
+  .brand-tagline{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);}
+  .title-row{display:flex;align-items:center;gap:10px;}
   .header h1{font-family:'Sora',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.02em;}
+  .edit-name-btn{
+    background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-3);
+    width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:11px;flex-shrink:0;
+    transition:all .2s ease;
+  }
+  .edit-name-btn:hover{color:var(--green);border-color:var(--green);}
   .header .sub{color:var(--text-2);font-size:14.5px;margin-top:6px;}
+
+  /* ---------- navegação em abas ---------- */
+  .main-tabs{
+    display:flex;gap:6px;margin-top:20px;padding-bottom:2px;
+    border-bottom:1px solid var(--border);overflow-x:auto;
+  }
+  .main-tab{
+    background:none;border:none;color:var(--text-2);font-family:'Inter',sans-serif;font-weight:600;
+    font-size:13.5px;padding:12px 6px;cursor:pointer;white-space:nowrap;position:relative;
+    transition:color .2s ease;
+  }
+  .main-tab + .main-tab{margin-left:14px;}
+  .main-tab:hover{color:var(--text-1);}
+  .main-tab.active{color:var(--green);}
+  .main-tab.active::after{
+    content:'';position:absolute;left:0;right:0;bottom:-2px;height:2px;
+    background:var(--green);border-radius:2px;box-shadow:0 0 8px var(--green-glow);
+  }
+  .view{animation:fadeUp .4s ease both;}
+  .view-intro{color:var(--text-2);font-size:13px;margin:-6px 0 18px;max-width:560px;line-height:1.5;}
 
   .period-filter{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);padding:5px;border-radius:999px;}
   .period-filter button{
@@ -291,18 +323,6 @@
   .onboarding-btn .ob-title{font-family:'Sora',sans-serif;font-weight:600;font-size:14px;color:var(--text-1);}
   .onboarding-btn .ob-desc{font-size:12px;color:var(--text-2);line-height:1.4;}
 
-  /* ---------------- floating action button (mobile: adicionar) ---------------- */
-  .fab{
-    position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
-    display:none;align-items:center;justify-content:center;font-size:26px;font-weight:700;line-height:1;
-    box-shadow:0 10px 28px -6px rgba(0,0,0,0.55);z-index:120;transition:transform .2s ease, box-shadow .2s ease;
-    background:var(--green);color:#052018;box-shadow:0 10px 28px -4px var(--green-glow);
-  }
-  .fab:hover{transform:translateY(-2px) scale(1.05);}
-  @media (max-width:980px){
-    .fab-add{display:flex;}
-  }
-
   /* ---------------- ícone de ajuda (cabeçalho, todas as telas) ---------------- */
   .help-icon-btn{
     width:34px;height:34px;border-radius:50%;border:1px solid var(--border-strong);background:var(--card);
@@ -375,7 +395,6 @@
   /* ---------------- formulário: cabeçalho / corpo / rodapé (estrutura reaproveitada no mobile) ---------------- */
   .form-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
   .form-card-header h3{margin-bottom:0;}
-  .form-close-mobile{display:none;}
 
   /* Maior contraste e alvo de toque maior — vale para desktop e mobile */
   .type-toggle{display:flex;background:var(--bg-elevated);border:1px solid var(--border);border-radius:11px;padding:5px;gap:5px;margin-bottom:14px;}
@@ -388,36 +407,110 @@
 
   .field input, .field select{min-height:46px;}
 
-  /* ---------------- mobile: modal de adicionar lançamento em tela cheia ---------------- */
+  /* ---------------- mobile: formulário sempre visível (não é mais modal), com alvos de toque maiores ---------------- */
   @media (max-width:980px){
-    .form-card{display:none;}
-    .form-card.mobile-modal-open{
-      display:flex;flex-direction:column;
-      position:fixed;inset:0;z-index:140;
-      background:var(--bg);
-      animation:fadeIn .2s ease both;
-    }
-    .form-card.mobile-modal-open .form-card-header{
-      flex-shrink:0;margin:0;padding:18px 20px;border-bottom:1px solid var(--border);
-      background:var(--bg);
-    }
-    .form-card.mobile-modal-open .form-card-header h3{font-size:17px;}
-    .form-card.mobile-modal-open .form-card-body{
-      flex:1;overflow-y:auto;padding:20px;
-    }
-    .form-card.mobile-modal-open .form-card-footer{
-      flex-shrink:0;padding:16px 20px calc(16px + env(safe-area-inset-bottom));
-      border-top:1px solid var(--border);background:var(--bg);
-    }
-    .form-close-mobile{
-      display:flex;align-items:center;justify-content:center;background:var(--card);
-      border:1px solid var(--border-strong);color:var(--text-1);width:36px;height:36px;border-radius:50%;
-      cursor:pointer;font-size:14px;flex-shrink:0;
-    }
     .type-toggle button{min-height:52px;font-size:15px;}
     .field label{font-size:12.5px;}
     .field input, .field select{min-height:52px;font-size:16px;padding:12px 14px;}
     .btn-add{min-height:52px;font-size:14.5px;}
+  }
+
+  /* ---------------- barra de gerenciamento de dados (mais visual, acima do formulário) ---------------- */
+  .reset-toolbar{
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:14px 18px;margin-bottom:16px;
+  }
+  .reset-toolbar-label{font-size:12px;color:var(--text-2);font-weight:600;}
+  .reset-toolbar-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .reset-btn{
+    display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:10px 16px;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;cursor:pointer;
+    border:1px solid transparent;transition:all .2s ease;min-height:40px;
+  }
+  .reset-btn-soft{background:var(--blue-dim);color:var(--blue);border-color:rgba(91,124,250,0.3);}
+  .reset-btn-soft:hover{border-color:var(--blue);}
+  .reset-btn-danger{background:var(--red-dim);color:var(--red);border-color:rgba(255,92,114,0.3);}
+  .reset-btn-danger:hover{border-color:var(--red);}
+  @media (max-width:560px){
+    .reset-toolbar{flex-direction:column;align-items:stretch;}
+    .reset-toolbar-actions{width:100%;}
+    .reset-btn{flex:1;justify-content:center;}
+  }
+
+  /* ---------------- metas & sonhos ---------------- */
+  .goals-toolbar{margin-bottom:18px;}
+  .btn-add-inline{width:auto;padding:11px 20px;display:inline-flex;align-items:center;gap:6px;min-height:44px;}
+  .goal-form-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:22px;margin-bottom:20px;animation:fadeUp .3s ease both;
+  }
+  .goal-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:16px;}
+  .goal-form-actions{display:flex;gap:10px;}
+  .goal-form-actions .btn-add{width:auto;padding:11px 22px;}
+  .btn-cancel{
+    background:none;border:1px solid var(--border-strong);color:var(--text-2);border-radius:9px;
+    padding:11px 18px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;
+    min-height:44px;
+  }
+  .btn-cancel:hover{color:var(--text-1);}
+  .goals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+  .goal-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:22px;transition:transform .25s ease, border-color .25s ease;position:relative;
+  }
+  .goal-card:hover{transform:translateY(-3px);border-color:var(--border-strong);}
+  .goal-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+  .goal-emoji{font-size:26px;line-height:1;}
+  .goal-actions{display:flex;gap:4px;}
+  .goal-icon-btn{
+    background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-3);
+    width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:12px;transition:all .2s ease;
+  }
+  .goal-icon-btn:hover{color:var(--text-1);}
+  .goal-icon-btn.danger:hover{color:var(--red);border-color:var(--red);}
+  .goal-name{font-family:'Sora',sans-serif;font-size:15.5px;font-weight:700;margin-bottom:4px;}
+  .goal-amounts{font-size:12.5px;color:var(--text-2);margin-bottom:10px;}
+  .goal-amounts b{color:var(--text-1);font-family:'JetBrains Mono',monospace;}
+  .goal-bar-track{height:9px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;margin-bottom:8px;}
+  .goal-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg, var(--green), var(--blue));transition:width 1s cubic-bezier(.22,1,.36,1);}
+  .goal-pct{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);font-weight:600;}
+  .goal-meta{font-size:11.5px;color:var(--text-3);margin-top:8px;line-height:1.5;}
+  .goal-contribute-row{display:flex;gap:8px;margin-top:14px;}
+  .goal-contribute-row input{
+    flex:1;background:#1d1d29;border:1px solid var(--border-strong);color:var(--text-1);
+    padding:9px 11px;border-radius:8px;font-size:13px;min-height:38px;
+  }
+  .goal-contribute-row button{
+    background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,143,0.3);
+    border-radius:8px;padding:9px 14px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:38px;white-space:nowrap;
+  }
+  .goal-contribute-row button:hover{border-color:var(--green);}
+  .goal-card.complete{border-color:rgba(34,197,143,0.4);}
+  .goal-complete-badge{
+    display:inline-flex;align-items:center;gap:4px;background:var(--green-dim);color:var(--green);
+    font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:8px;
+  }
+  .goals-empty{
+    grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text-3);font-size:13px;
+    border:1px dashed var(--border);border-radius:var(--radius-lg);
+  }
+
+  /* ---------------- editar nome (modal) ---------------- */
+  .name-modal-input{
+    width:100%;background:#1d1d29;border:1px solid var(--border-strong);color:var(--text-1);
+    padding:12px 14px;border-radius:9px;font-family:'Inter',sans-serif;font-size:14px;outline:none;
+    margin-bottom:16px;min-height:46px;
+  }
+  .name-modal-input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim);}
+  .name-modal-actions{display:flex;gap:10px;justify-content:center;}
+
+  /* ---------------- investimentos: tabela ---------------- */
+  .rent-positive{color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:600;}
+  .rent-negative{color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:600;}
+  .asset-class-tag{
+    display:inline-flex;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;
+    background:var(--blue-dim);color:var(--blue);
   }
 
   /* ---------------- mobile: lista de lançamentos em cartões (em vez de tabela) ---------------- */
@@ -456,8 +549,17 @@
 
   <div class="header">
     <div>
-      <div class="eyebrow"><span class="dot"></span>PAINEL PESSOAL</div>
-      <h1>Meu Painel Financeiro</h1>
+      <div class="brand-row">
+        <span class="brand-logo">G</span>
+        <div class="brand-text">
+          <span class="brand-name">Groow Finance</span>
+          <span class="brand-tagline">Performance com Dados</span>
+        </div>
+      </div>
+      <div class="title-row">
+        <h1 id="dashboardTitle">Meu Painel Financeiro</h1>
+        <button class="edit-name-btn" id="editNameBtn" title="Personalizar nome" aria-label="Editar nome">✎</button>
+      </div>
       <div class="sub" id="periodSub">Carregando período…</div>
       <div class="privacy-badge">🔒 100% local — seus dados não saem deste navegador</div>
     </div>
@@ -472,6 +574,13 @@
     </div>
   </div>
 
+  <div class="main-tabs" id="mainTabs">
+    <button class="main-tab active" data-view="overview">📊 Visão Geral</button>
+    <button class="main-tab" data-view="goals">🎯 Metas &amp; Sonhos</button>
+    <button class="main-tab" data-view="investments">📈 Investimentos</button>
+  </div>
+
+  <div class="view" id="viewOverview">
   <div class="hero">
     <div class="ring-card">
       <div class="ring-wrap">
@@ -561,11 +670,19 @@
   </div>
 
   <div class="section-title"><span class="bar"></span>Lançamentos</div>
+
+  <div class="reset-toolbar">
+    <span class="reset-toolbar-label">Gerenciar dados do painel</span>
+    <div class="reset-toolbar-actions">
+      <button class="reset-btn reset-btn-soft" id="reloadDemoBtn">🔄 Recarregar exemplo</button>
+      <button class="reset-btn reset-btn-danger" id="clearAllBtn">🗑️ Começar do zero</button>
+    </div>
+  </div>
+
   <div class="tx-section">
     <div class="form-card" id="formCard">
       <div class="form-card-header">
         <h3>Adicionar lançamento</h3>
-        <button class="form-close-mobile" id="formCloseMobile" aria-label="Fechar">✕</button>
       </div>
       <div class="form-card-body">
         <div class="type-toggle" id="typeToggle">
@@ -624,6 +741,144 @@
       </div>
     </div>
   </div>
+  </div><!-- /view-overview -->
+
+  <div class="view" id="viewGoals" style="display:none;">
+    <div class="section-title"><span class="bar"></span>Metas &amp; Sonhos</div>
+    <p class="view-intro">Dê nome ao que você está guardando dinheiro para conquistar. Metas com prazo mostram quanto você precisa guardar por mês para chegar lá.</p>
+
+    <div class="goals-toolbar">
+      <button class="btn-add btn-add-inline" id="openGoalFormBtn">＋ Nova meta</button>
+    </div>
+
+    <div class="goal-form-card" id="goalFormCard" style="display:none;">
+      <div class="goal-form-grid">
+        <div class="field">
+          <label>Emoji</label>
+          <select id="gEmoji">
+            <option value="🎯">🎯 Meta</option>
+            <option value="🏠">🏠 Casa</option>
+            <option value="🚗">🚗 Carro</option>
+            <option value="✈️">✈️ Viagem</option>
+            <option value="🎓">🎓 Estudos</option>
+            <option value="💍">💍 Casamento</option>
+            <option value="👶">👶 Filho(a)</option>
+            <option value="🛡️">🛡️ Reserva de emergência</option>
+            <option value="💻">💻 Equipamento</option>
+            <option value="🏖️">🏖️ Aposentadoria</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Nome da meta</label>
+          <input type="text" id="gNome" placeholder="Ex: Viagem para o Japão">
+        </div>
+        <div class="field">
+          <label>Valor alvo (R$)</label>
+          <input type="number" id="gValorAlvo" step="0.01" min="0" inputmode="decimal" placeholder="0,00">
+        </div>
+        <div class="field">
+          <label>Já guardado (R$)</label>
+          <input type="number" id="gValorAtual" step="0.01" min="0" inputmode="decimal" placeholder="0,00">
+        </div>
+        <div class="field">
+          <label>Prazo (opcional)</label>
+          <input type="date" id="gData">
+        </div>
+      </div>
+      <div class="goal-form-actions">
+        <button class="btn-add" id="btnAddGoal">Salvar meta</button>
+        <button class="btn-cancel" id="btnCancelGoal">Cancelar</button>
+      </div>
+      <div class="form-msg" id="goalFormMsg"></div>
+    </div>
+
+    <div class="goals-grid" id="goalsGrid"></div>
+  </div><!-- /view-goals -->
+
+  <div class="view" id="viewInvestments" style="display:none;">
+    <div class="section-title"><span class="bar"></span>Investimentos</div>
+    <p class="view-intro">Acompanhe sua carteira por classe de ativo — separada dos seus gastos do dia a dia.</p>
+
+    <div class="kpi-grid" id="investKpiGrid">
+      <div class="kpi-card">
+        <div class="label">Total investido</div>
+        <div class="value mono" id="investTotalInvestido">R$ 0,00</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Valor atual da carteira</div>
+        <div class="value mono" id="investValorAtual">R$ 0,00</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Rentabilidade</div>
+        <div class="value mono" id="investRentabilidade">R$ 0,00</div>
+        <div class="foot" id="investRentabilidadePct">0%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Classe com maior peso</div>
+        <div class="value" id="investMaiorClasse">—</div>
+        <div class="foot" id="investMaiorClassePct">—</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Composição da carteira</h3>
+        <div class="chart-holder"><canvas id="chartPortfolio"></canvas></div>
+        <div class="insight"><span class="spark">▲</span><span id="insightPortfolio">Analisando composição…</span></div>
+      </div>
+      <div class="chart-card">
+        <h3>Investido vs. valor atual por classe</h3>
+        <div class="chart-holder"><canvas id="chartInvestCompare"></canvas></div>
+        <div class="insight"><span class="spark">▲</span><span id="insightInvestCompare">Comparando aportes e retorno…</span></div>
+      </div>
+    </div>
+
+    <div class="tx-section">
+      <div class="form-card">
+        <div class="form-card-header"><h3>Nova posição</h3></div>
+        <div class="form-card-body">
+          <div class="field">
+            <label>Classe do ativo</label>
+            <select id="iClasse">
+              <option>Renda Fixa</option>
+              <option>Ações</option>
+              <option>FIIs</option>
+              <option>Fundos</option>
+              <option>Cripto</option>
+              <option>Previdência</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Nome do ativo</label>
+            <input type="text" id="iNome" placeholder="Ex: Tesouro Selic 2029">
+          </div>
+          <div class="field">
+            <label>Valor investido (R$)</label>
+            <input type="number" id="iValorInvestido" step="0.01" min="0" inputmode="decimal" placeholder="0,00">
+          </div>
+          <div class="field">
+            <label>Valor atual (opcional)</label>
+            <input type="number" id="iValorAtual" step="0.01" min="0" inputmode="decimal" placeholder="Deixe em branco se igual ao investido">
+          </div>
+        </div>
+        <div class="form-card-footer">
+          <button class="btn-add" id="btnAddInvest">Adicionar posição</button>
+          <div class="form-msg" id="investFormMsg"></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="top-row"><h3>Minhas posições</h3></div>
+        <div class="tx-table-wrap">
+          <table>
+            <thead><tr><th>Classe</th><th>Ativo</th><th style="text-align:right">Investido</th><th style="text-align:right">Atual</th><th style="text-align:right">Rentab.</th><th></th></tr></thead>
+            <tbody id="investTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /view-investments -->
 
 </div>
 
@@ -636,8 +891,6 @@
     <button id="exportBtn" title="Baixar um arquivo .json com todos os seus lançamentos">Exportar backup</button>
     <button id="importBtn" title="Carregar um arquivo .json exportado anteriormente">Importar backup</button>
     <input type="file" id="importFile" accept="application/json" style="display:none;">
-    <button id="clearAllBtn" title="Apaga todos os lançamentos e deixa o painel vazio">Começar do zero</button>
-    <button id="reloadDemoBtn" title="Substitui os dados atuais por 6 meses de exemplo fictício">Recarregar exemplo</button>
   </div>
 </footer>
 
@@ -646,6 +899,8 @@
   <div class="modal-card">
     <div class="modal-icon">👋</div>
     <h2>Bem-vindo ao seu Painel Financeiro</h2>
+    <p>Como podemos te chamar? (opcional)</p>
+    <input type="text" class="name-modal-input" id="onboardingNameInput" placeholder="Seu nome" maxlength="40">
     <p>Como você prefere começar?</p>
     <div class="onboarding-options">
       <button class="onboarding-btn" id="btnStartDemo">
@@ -660,8 +915,19 @@
   </div>
 </div>
 
-<!-- Botão flutuante (mobile: adicionar lançamento) -->
-<button class="fab fab-add" id="addFab" title="Adicionar lançamento" aria-label="Adicionar lançamento">＋</button>
+<!-- Modal de editar nome -->
+<div class="modal-overlay" id="nameEditOverlay" style="display:none;">
+  <div class="modal-card">
+    <div class="modal-icon">✎</div>
+    <h2>Personalizar painel</h2>
+    <p>O nome aparece no título do seu painel.</p>
+    <input type="text" class="name-modal-input" id="nameEditInput" placeholder="Seu nome" maxlength="40">
+    <div class="name-modal-actions">
+      <button class="btn-add" style="width:auto;padding:11px 22px;" id="btnSaveName">Salvar</button>
+      <button class="btn-cancel" id="btnCancelName">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 <!-- Modal de ajuda -->
 <div class="modal-overlay" id="helpOverlay" style="display:none;">
@@ -696,7 +962,7 @@ const CAT_COLORS = {
   "Investimentos":"#2dd4bf","Outros":"#94a3b8"
 };
 
-let state = { transactions: [], type: "entrada", period: "6", selectedIds: new Set() };
+let state = { transactions: [], type: "entrada", period: "6", selectedIds: new Set(), config: {nome:''}, goals: [], investments: [] };
 
 function fmtBRL(v){
   return (v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
@@ -852,6 +1118,106 @@ function persistTransactions(list){
   }
 }
 function saveTransactions(){ return persistTransactions(state.transactions); }
+
+/* ---------------- personalização (nome exibido no título) ---------------- */
+const CONFIG_KEY = "painelFinanceiro:v1:config";
+function loadConfig(){
+  try{
+    const raw = localStorage.getItem(CONFIG_KEY);
+    if(raw !== null){
+      const parsed = JSON.parse(raw);
+      if(parsed && typeof parsed.nome === 'string') return { nome: parsed.nome.slice(0,40) };
+    }
+  }catch(e){ console.warn('Não foi possível ler o nome salvo:', e); }
+  return { nome: '' };
+}
+function saveConfig(config){
+  try{ localStorage.setItem(CONFIG_KEY, JSON.stringify({ nome: String(config.nome||'').slice(0,40) })); return true; }
+  catch(e){ console.error('Falha ao salvar personalização:', e); return false; }
+}
+function applyDashboardTitle(){
+  const title = document.getElementById('dashboardTitle');
+  const nome = (state.config.nome || '').trim();
+  title.textContent = nome ? `Painel Financeiro de ${nome}` : 'Meu Painel Financeiro';
+}
+
+/* ---------------- metas & sonhos: validação e persistência ---------------- */
+const GOALS_KEY = "painelFinanceiro:v1:metas";
+function isValidGoal(g){
+  return g && typeof g === 'object'
+    && typeof g.nome === 'string' && g.nome.trim().length > 0 && g.nome.length <= 80
+    && typeof g.valorAlvo === 'number' && Number.isFinite(g.valorAlvo) && g.valorAlvo > 0 && g.valorAlvo < 1e9
+    && typeof g.valorAtual === 'number' && Number.isFinite(g.valorAtual) && g.valorAtual >= 0 && g.valorAtual < 1e9
+    && (g.data === undefined || g.data === null || g.data === '' ||
+        (typeof g.data === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(g.data) && !isNaN(new Date(g.data+"T00:00:00").getTime())))
+    && (g.emoji === undefined || typeof g.emoji === 'string');
+}
+function sanitizeGoals(list){
+  if(!Array.isArray(list)) return null;
+  return list.filter(isValidGoal).map(g => ({
+    id: (typeof g.id === 'string' && g.id.length <= 40) ? g.id : uid(),
+    nome: String(g.nome).slice(0,80),
+    emoji: (typeof g.emoji === 'string' && g.emoji) ? g.emoji.slice(0,4) : '🎯',
+    valorAlvo: Math.round(g.valorAlvo * 100) / 100,
+    valorAtual: Math.round(Math.min(g.valorAtual, 1e9) * 100) / 100,
+    data: g.data || null
+  }));
+}
+function loadGoals(){
+  try{
+    const raw = localStorage.getItem(GOALS_KEY);
+    if(raw !== null){
+      const clean = sanitizeGoals(JSON.parse(raw));
+      if(clean !== null) return clean;
+      console.warn('Metas salvas em formato inesperado — ignorando.');
+    }
+  }catch(e){ console.warn('Não foi possível ler as metas salvas:', e); }
+  return [];
+}
+function saveGoals(){
+  try{ localStorage.setItem(GOALS_KEY, JSON.stringify(state.goals)); return true; }
+  catch(e){ console.error('Falha ao salvar metas:', e); setStorageNotice('Não foi possível salvar suas metas neste navegador.'); return false; }
+}
+
+/* ---------------- investimentos: validação e persistência ---------------- */
+const INVEST_KEY = "painelFinanceiro:v1:investimentos";
+const ASSET_CLASSES = ['Renda Fixa','Ações','FIIs','Fundos','Cripto','Previdência','Outro'];
+const CLASS_COLORS = {
+  'Renda Fixa':'#5b7cfa', 'Ações':'#22c58f', 'FIIs':'#ff9f52', 'Fundos':'#c084fc',
+  'Cripto':'#facc15', 'Previdência':'#38bdf8', 'Outro':'#94a3b8'
+};
+function isValidInvestment(i){
+  return i && typeof i === 'object'
+    && typeof i.nome === 'string' && i.nome.trim().length > 0 && i.nome.length <= 80
+    && ASSET_CLASSES.includes(i.classe)
+    && typeof i.valorInvestido === 'number' && Number.isFinite(i.valorInvestido) && i.valorInvestido > 0 && i.valorInvestido < 1e9
+    && typeof i.valorAtual === 'number' && Number.isFinite(i.valorAtual) && i.valorAtual >= 0 && i.valorAtual < 1e9;
+}
+function sanitizeInvestments(list){
+  if(!Array.isArray(list)) return null;
+  return list.filter(isValidInvestment).map(i => ({
+    id: (typeof i.id === 'string' && i.id.length <= 40) ? i.id : uid(),
+    nome: String(i.nome).slice(0,80),
+    classe: i.classe,
+    valorInvestido: Math.round(i.valorInvestido * 100) / 100,
+    valorAtual: Math.round(i.valorAtual * 100) / 100
+  }));
+}
+function loadInvestments(){
+  try{
+    const raw = localStorage.getItem(INVEST_KEY);
+    if(raw !== null){
+      const clean = sanitizeInvestments(JSON.parse(raw));
+      if(clean !== null) return clean;
+      console.warn('Investimentos salvos em formato inesperado — ignorando.');
+    }
+  }catch(e){ console.warn('Não foi possível ler os investimentos salvos:', e); }
+  return [];
+}
+function saveInvestments(){
+  try{ localStorage.setItem(INVEST_KEY, JSON.stringify(state.investments)); return true; }
+  catch(e){ console.error('Falha ao salvar investimentos:', e); setStorageNotice('Não foi possível salvar seus investimentos neste navegador.'); return false; }
+}
 
 /* ---------------- toasts com desfazer ---------------- */
 function showUndoToast(message, onUndo, timeoutMs = 6000){
@@ -1258,6 +1624,270 @@ function clearSelection(){
   updateBulkBar();
 }
 
+/* ---------------- metas & sonhos: render ---------------- */
+function renderGoals(){
+  const grid = document.getElementById('goalsGrid');
+  if(!state.goals.length){
+    grid.innerHTML = `<div class="goals-empty">Nenhuma meta ainda. Que tal criar a primeira? 🎯</div>`;
+    return;
+  }
+  grid.innerHTML = state.goals.map(g => {
+    const pct = g.valorAlvo > 0 ? Math.min(100, (g.valorAtual / g.valorAlvo) * 100) : 0;
+    const falta = Math.max(0, g.valorAlvo - g.valorAtual);
+    const complete = g.valorAtual >= g.valorAlvo;
+    let metaLine = '';
+    if(g.data){
+      const hoje = new Date(); hoje.setHours(0,0,0,0);
+      const alvo = new Date(g.data+"T00:00:00");
+      const dataFmt = alvo.toLocaleDateString('pt-BR');
+      if(complete){
+        metaLine = `Meta atingida! Prazo era ${dataFmt} 🎉`;
+      } else {
+        const meses = Math.max(1, Math.ceil((alvo - hoje) / (1000*60*60*24*30)));
+        metaLine = alvo > hoje
+          ? `Faltam ${fmtBRL(falta)} · guarde ~${fmtBRL(falta/meses)}/mês até ${dataFmt}`
+          : `Prazo (${dataFmt}) já passou · faltam ${fmtBRL(falta)}`;
+      }
+    }
+    return `
+      <div class="goal-card ${complete?'complete':''}">
+        <div class="goal-card-top">
+          <span class="goal-emoji">${g.emoji}</span>
+          <div class="goal-actions">
+            <button class="goal-icon-btn danger" data-action="delete-goal" data-id="${g.id}" title="Excluir meta">✕</button>
+          </div>
+        </div>
+        <div class="goal-name">${escapeHtml(g.nome)}</div>
+        <div class="goal-amounts"><b>${fmtBRL(g.valorAtual)}</b> de ${fmtBRL(g.valorAlvo)}</div>
+        <div class="goal-bar-track"><div class="goal-bar-fill" style="width:${pct}%"></div></div>
+        <span class="goal-pct">${pct.toFixed(0)}%</span>
+        ${complete
+          ? `<div class="goal-complete-badge">✓ Conquistada</div>`
+          : `<div class="goal-contribute-row">
+              <input type="number" min="0" step="0.01" inputmode="decimal" placeholder="Valor do aporte" id="contrib-${g.id}">
+              <button type="button" data-action="contribute" data-id="${g.id}">＋ Aportar</button>
+            </div>`
+        }
+        ${metaLine ? `<div class="goal-meta">${escapeHtml(metaLine)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  grid.querySelectorAll('[data-action="delete-goal"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const idx = state.goals.findIndex(g=>g.id===id);
+      if(idx === -1) return;
+      const [removed] = state.goals.splice(idx, 1);
+      saveGoals();
+      renderGoals();
+      showUndoToast('Meta excluída.', ()=>{
+        state.goals.splice(Math.min(idx, state.goals.length), 0, removed);
+        saveGoals();
+        renderGoals();
+      });
+    });
+  });
+
+  grid.querySelectorAll('[data-action="contribute"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const input = document.getElementById(`contrib-${id}`);
+      const val = parseFloat(input.value);
+      if(!val || !Number.isFinite(val) || val <= 0) return;
+      const goal = state.goals.find(g=>g.id===id);
+      if(!goal) return;
+      goal.valorAtual = Math.min(goal.valorAlvo, Math.round((goal.valorAtual + val) * 100) / 100);
+      saveGoals();
+      renderGoals();
+    });
+  });
+}
+
+document.getElementById('openGoalFormBtn').addEventListener('click', ()=>{
+  const card = document.getElementById('goalFormCard');
+  card.style.display = 'block';
+  card.scrollIntoView({behavior:'smooth', block:'nearest'});
+  document.getElementById('gNome').focus();
+});
+document.getElementById('btnCancelGoal').addEventListener('click', ()=>{
+  document.getElementById('goalFormCard').style.display = 'none';
+  document.getElementById('goalFormMsg').textContent = '';
+});
+document.getElementById('btnAddGoal').addEventListener('click', async ()=>{
+  const nome = document.getElementById('gNome').value.trim().slice(0,80);
+  const emoji = document.getElementById('gEmoji').value;
+  const valorAlvo = parseFloat(document.getElementById('gValorAlvo').value);
+  const valorAtualRaw = parseFloat(document.getElementById('gValorAtual').value);
+  const valorAtual = Number.isFinite(valorAtualRaw) && valorAtualRaw > 0 ? valorAtualRaw : 0;
+  const data = document.getElementById('gData').value || null;
+  const msg = document.getElementById('goalFormMsg');
+
+  if(!nome){ msg.textContent = 'Dê um nome para a meta.'; msg.style.color = 'var(--red)'; return; }
+  if(!valorAlvo || !Number.isFinite(valorAlvo) || valorAlvo <= 0 || valorAlvo >= 1e9){
+    msg.textContent = 'Informe um valor alvo válido.'; msg.style.color = 'var(--red)'; return;
+  }
+  if(data && (!/^\d{4}-\d{2}-\d{2}$/.test(data) || isNaN(new Date(data+"T00:00:00").getTime()))){
+    msg.textContent = 'Data inválida.'; msg.style.color = 'var(--red)'; return;
+  }
+
+  state.goals.push({
+    id: uid(), nome, emoji, data,
+    valorAlvo: Math.round(valorAlvo*100)/100,
+    valorAtual: Math.round(valorAtual*100)/100
+  });
+  saveGoals();
+
+  ['gNome','gValorAlvo','gValorAtual','gData'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('goalFormCard').style.display = 'none';
+  msg.textContent = '';
+  renderGoals();
+});
+
+/* ---------------- investimentos: render ---------------- */
+let chartPortfolio, chartInvestCompare;
+
+function renderInvestments(){
+  const totalInvestido = state.investments.reduce((s,i)=>s+i.valorInvestido, 0);
+  const valorAtual = state.investments.reduce((s,i)=>s+i.valorAtual, 0);
+  const rentabilidade = valorAtual - totalInvestido;
+  const rentPct = totalInvestido > 0 ? (rentabilidade/totalInvestido*100) : 0;
+
+  document.getElementById('investTotalInvestido').textContent = fmtBRL(totalInvestido);
+  document.getElementById('investValorAtual').textContent = fmtBRL(valorAtual);
+  const rentEl = document.getElementById('investRentabilidade');
+  rentEl.textContent = (rentabilidade>=0?'+':'') + fmtBRL(rentabilidade);
+  rentEl.style.color = rentabilidade >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('investRentabilidadePct').textContent = (rentPct>=0?'+':'') + rentPct.toFixed(2) + '%';
+
+  const byClasse = {};
+  state.investments.forEach(i => { byClasse[i.classe] = (byClasse[i.classe]||0) + i.valorAtual; });
+  const classeEntries = Object.entries(byClasse).sort((a,b)=>b[1]-a[1]);
+  if(classeEntries.length){
+    const [topClasse, topVal] = classeEntries[0];
+    document.getElementById('investMaiorClasse').textContent = topClasse;
+    document.getElementById('investMaiorClassePct').textContent = valorAtual>0 ? `${((topVal/valorAtual)*100).toFixed(0)}% da carteira` : '—';
+  } else {
+    document.getElementById('investMaiorClasse').textContent = '—';
+    document.getElementById('investMaiorClassePct').textContent = 'sem posições ainda';
+  }
+
+  // gráfico de composição (donut)
+  const portfolioCtx = document.getElementById('chartPortfolio');
+  if(chartPortfolio) chartPortfolio.destroy();
+  chartPortfolio = new Chart(portfolioCtx, {
+    type:'doughnut',
+    data:{ labels: classeEntries.map(e=>e[0]), datasets:[{
+      data: classeEntries.map(e=>e[1]),
+      backgroundColor: classeEntries.map(e=>CLASS_COLORS[e[0]]||'#94a3b8'),
+      borderColor:'#14141c', borderWidth:3, hoverOffset:8
+    }]},
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'68%',
+      plugins:{
+        legend:{position:'right', labels:{color:'#9c9cab', font:{family:'Inter', size:11}, boxWidth:9, boxHeight:9, usePointStyle:true, pointStyle:'circle'}},
+        tooltip:{...chartTooltipBase(), callbacks:{label:(c)=> ` ${c.label}: ${fmtBRL(c.parsed)}`}}
+      }
+    }
+  });
+  document.getElementById('insightPortfolio').textContent = classeEntries.length
+    ? `${classeEntries[0][0]} é sua maior posição, com ${((classeEntries[0][1]/valorAtual)*100).toFixed(0)}% da carteira.`
+    : 'Adicione posições para ver a composição da sua carteira.';
+
+  // gráfico investido vs. atual por classe
+  const compareCtx = document.getElementById('chartInvestCompare');
+  if(chartInvestCompare) chartInvestCompare.destroy();
+  const investidoPorClasse = ASSET_CLASSES.filter(c => state.investments.some(i=>i.classe===c));
+  const investidoData = investidoPorClasse.map(c => state.investments.filter(i=>i.classe===c).reduce((s,i)=>s+i.valorInvestido,0));
+  const atualData = investidoPorClasse.map(c => state.investments.filter(i=>i.classe===c).reduce((s,i)=>s+i.valorAtual,0));
+  chartInvestCompare = new Chart(compareCtx, {
+    type:'bar',
+    data:{ labels: investidoPorClasse, datasets:[
+      {label:'Investido', data:investidoData, backgroundColor:'#5b7cfa', borderRadius:6, maxBarThickness:26},
+      {label:'Atual', data:atualData, backgroundColor:'#22c58f', borderRadius:6, maxBarThickness:26}
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{labels:{color:'#9c9cab', font:{family:'Inter', size:11.5}, usePointStyle:true, pointStyle:'circle'}},
+        tooltip:{...chartTooltipBase(), callbacks:{label:(c)=> c.dataset.label+': '+fmtBRL(c.parsed.y)}} },
+      scales:{
+        x:{ ticks:{color:'#5c5c6c', font:{family:'Inter', size:10.5}}, grid:{display:false} },
+        y:{ ticks:{color:'#5c5c6c', font:{family:'JetBrains Mono', size:10}, callback:v=>'R$ '+(v/1000).toFixed(1)+'k'}, grid:{color:'rgba(255,255,255,0.05)'} }
+      }
+    }
+  });
+  document.getElementById('insightInvestCompare').textContent = totalInvestido>0
+    ? (rentabilidade>=0
+        ? `Sua carteira valorizou ${fmtBRL(rentabilidade)} (${rentPct.toFixed(2)}%) sobre o total investido.`
+        : `Sua carteira está ${fmtBRL(Math.abs(rentabilidade))} (${Math.abs(rentPct).toFixed(2)}%) abaixo do total investido.`)
+    : 'Adicione posições para acompanhar a rentabilidade.';
+
+  // tabela de posições
+  const tbody = document.getElementById('investTableBody');
+  if(!state.investments.length){
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">Nenhuma posição cadastrada ainda.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = state.investments.map(i => {
+    const rent = i.valorAtual - i.valorInvestido;
+    const rentPctItem = i.valorInvestido>0 ? (rent/i.valorInvestido*100) : 0;
+    return `
+      <tr>
+        <td><span class="asset-class-tag" style="background:${CLASS_COLORS[i.classe]}22;color:${CLASS_COLORS[i.classe]}">${escapeHtml(i.classe)}</span></td>
+        <td>${escapeHtml(i.nome)}</td>
+        <td style="text-align:right" class="mono">${fmtBRL(i.valorInvestido)}</td>
+        <td style="text-align:right" class="mono">${fmtBRL(i.valorAtual)}</td>
+        <td style="text-align:right" class="${rent>=0?'rent-positive':'rent-negative'}">${rent>=0?'+':''}${rentPctItem.toFixed(1)}%</td>
+        <td style="text-align:right"><button class="del-btn" data-id="${i.id}" title="Excluir">✕</button></td>
+      </tr>
+    `;
+  }).join('');
+
+  tbody.querySelectorAll('.del-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const idx = state.investments.findIndex(i=>i.id===id);
+      if(idx === -1) return;
+      const [removed] = state.investments.splice(idx, 1);
+      saveInvestments();
+      renderInvestments();
+      showUndoToast('Posição excluída.', ()=>{
+        state.investments.splice(Math.min(idx, state.investments.length), 0, removed);
+        saveInvestments();
+        renderInvestments();
+      });
+    });
+  });
+}
+
+document.getElementById('btnAddInvest').addEventListener('click', ()=>{
+  const nome = document.getElementById('iNome').value.trim().slice(0,80);
+  const classe = document.getElementById('iClasse').value;
+  const valorInvestido = parseFloat(document.getElementById('iValorInvestido').value);
+  const valorAtualRaw = parseFloat(document.getElementById('iValorAtual').value);
+  const valorAtual = Number.isFinite(valorAtualRaw) && valorAtualRaw >= 0 ? valorAtualRaw : valorInvestido;
+  const msg = document.getElementById('investFormMsg');
+
+  if(!nome){ msg.textContent = 'Dê um nome ao ativo.'; msg.style.color = 'var(--red)'; return; }
+  if(!ASSET_CLASSES.includes(classe)){ msg.textContent = 'Classe inválida.'; msg.style.color = 'var(--red)'; return; }
+  if(!valorInvestido || !Number.isFinite(valorInvestido) || valorInvestido <= 0 || valorInvestido >= 1e9){
+    msg.textContent = 'Informe um valor investido válido.'; msg.style.color = 'var(--red)'; return;
+  }
+
+  state.investments.push({
+    id: uid(), nome, classe,
+    valorInvestido: Math.round(valorInvestido*100)/100,
+    valorAtual: Math.round(valorAtual*100)/100
+  });
+  saveInvestments();
+
+  ['iNome','iValorInvestido','iValorAtual'].forEach(id => document.getElementById(id).value = '');
+  msg.textContent = 'Posição adicionada ✓';
+  msg.style.color = 'var(--green)';
+  setTimeout(()=>{ msg.textContent=''; }, 2200);
+  renderInvestments();
+});
+
 /* ---------------- form logic ---------------- */
 function populateCategories(){
   const sel = document.getElementById('fCategoria');
@@ -1322,7 +1952,6 @@ document.getElementById('btnAdd').addEventListener('click', async ()=>{
   setTimeout(()=>{ msg.textContent=''; }, 2200);
 
   renderAll();
-  if(window.innerWidth <= 980) setTimeout(closeAddForm, 500); // fecha a folha mobile após um breve feedback visual
 });
 
 document.getElementById('searchInput').addEventListener('input', renderTable);
@@ -1405,33 +2034,62 @@ document.getElementById('helpOverlay').addEventListener('click', (e)=>{
   if(e.target.id === 'helpOverlay') hideHelpModal(); // clique fora do card fecha
 });
 
-/* ---------------- formulário como modal em tela cheia no mobile ---------------- */
+/* ---------------- formulário sempre visível — apenas rola até ele ---------------- */
 function lockBodyScroll(){ document.body.style.overflow = 'hidden'; }
 function unlockBodyScroll(){
-  // só libera o scroll se nenhum outro modal/folha estiver aberto
-  const formOpen = document.getElementById('formCard').classList.contains('mobile-modal-open');
+  // só libera o scroll se nenhum outro modal estiver aberto
   const helpOpen = document.getElementById('helpOverlay').style.display !== 'none';
   const onboardingOpen = document.getElementById('onboardingOverlay').style.display !== 'none';
-  if(!formOpen && !helpOpen && !onboardingOpen) document.body.style.overflow = '';
+  const nameOpen = document.getElementById('nameEditOverlay').style.display !== 'none';
+  if(!helpOpen && !onboardingOpen && !nameOpen) document.body.style.overflow = '';
 }
 function openAddForm(){
   const card = document.getElementById('formCard');
-  if(window.innerWidth <= 980){
-    card.classList.add('mobile-modal-open');
-    lockBodyScroll();
-    setTimeout(()=>document.getElementById('fValor').focus(), 50);
-  } else {
-    card.scrollIntoView({behavior:'smooth', block:'start'});
-    document.getElementById('fValor').focus();
-  }
+  card.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(()=>document.getElementById('fValor').focus(), window.innerWidth <= 980 ? 350 : 0);
 }
-function closeAddForm(){
-  document.getElementById('formCard').classList.remove('mobile-modal-open');
+
+/* ---------------- personalização: modal de editar nome ---------------- */
+function showNameEditModal(){
+  document.getElementById('nameEditInput').value = state.config.nome || '';
+  document.getElementById('nameEditOverlay').style.display = 'flex';
+  lockBodyScroll();
+  setTimeout(()=>document.getElementById('nameEditInput').focus(), 50);
+}
+function hideNameEditModal(){
+  document.getElementById('nameEditOverlay').style.display = 'none';
   unlockBodyScroll();
 }
-document.getElementById('addFab').addEventListener('click', openAddForm);
-document.getElementById('formCloseMobile').addEventListener('click', closeAddForm);
+document.getElementById('editNameBtn').addEventListener('click', showNameEditModal);
+document.getElementById('btnCancelName').addEventListener('click', hideNameEditModal);
+document.getElementById('nameEditOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'nameEditOverlay') hideNameEditModal();
+});
+document.getElementById('btnSaveName').addEventListener('click', ()=>{
+  state.config.nome = document.getElementById('nameEditInput').value.trim().slice(0,40);
+  saveConfig(state.config);
+  applyDashboardTitle();
+  hideNameEditModal();
+});
+document.getElementById('nameEditInput').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') document.getElementById('btnSaveName').click();
+});
 
+/* ---------------- navegação em abas ---------------- */
+document.getElementById('mainTabs').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.main-tab');
+  if(!btn) return;
+  const view = btn.dataset.view;
+  document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('viewOverview').style.display = view === 'overview' ? 'block' : 'none';
+  document.getElementById('viewGoals').style.display = view === 'goals' ? 'block' : 'none';
+  document.getElementById('viewInvestments').style.display = view === 'investments' ? 'block' : 'none';
+  document.getElementById('periodFilter').style.display = view === 'overview' ? 'flex' : 'none';
+  // renderiza sob demanda: gráficos (Chart.js) precisam do container visível para medir o tamanho corretamente
+  if(view === 'goals') renderGoals();
+  if(view === 'investments') renderInvestments();
+});
 
 /* ---------------- onboarding (primeira visita) ---------------- */
 function showOnboardingModal(){
@@ -1442,13 +2100,21 @@ function hideOnboardingModal(){
   document.getElementById('onboardingOverlay').style.display = 'none';
   unlockBodyScroll();
 }
+function captureOnboardingName(){
+  const nome = document.getElementById('onboardingNameInput').value.trim().slice(0,40);
+  state.config.nome = nome;
+  saveConfig(state.config);
+  applyDashboardTitle();
+}
 document.getElementById('btnStartDemo').addEventListener('click', async ()=>{
+  captureOnboardingName();
   state.transactions = generateDemoData();
   await saveTransactions();
   hideOnboardingModal();
   finishInit();
 });
 document.getElementById('btnStartEmpty').addEventListener('click', async ()=>{
+  captureOnboardingName();
   state.transactions = [];
   await saveTransactions();
   hideOnboardingModal();
@@ -1461,12 +2127,18 @@ function finishInit(){
   document.getElementById('footerInfo').textContent = state.transactions.length
     ? `Seus lançamentos ficam salvos neste navegador · atualizado em ${now.toLocaleDateString('pt-BR')}`
     : `Painel vazio, pronto para seus lançamentos reais · ${now.toLocaleDateString('pt-BR')}`;
+  applyDashboardTitle();
   renderAll();
 }
 
 async function init(){
   document.getElementById('fData').value = todayISO();
   populateCategories();
+
+  state.config = loadConfig();
+  state.goals = loadGoals();
+  state.investments = loadInvestments();
+  applyDashboardTitle();
 
   if(isFirstVisit()){
     state.transactions = [];
